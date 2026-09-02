@@ -4,7 +4,7 @@ INVOKE_URL=$(terraform output -raw invoke_url)
 
 # add movies
 echo "> add movies"
-for i in $(seq 2001 2003); do
+for i in $(seq 2001 2099); do
     json="$(jq -n --arg year "$i" --arg title "MovieTitle$i" '{year: $year, title: $title}')"
     curl \
         -X PUT \
@@ -16,7 +16,7 @@ done
 
 # get movies by year
 echo "> get movies by year"
-for i in $(seq 2001 2003); do
+for i in $(seq 2001 2099); do
     curl "$INVOKE_URL/topmovies/$i"
     echo
 done
